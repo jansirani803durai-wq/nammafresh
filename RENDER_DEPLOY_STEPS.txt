@@ -1,0 +1,27 @@
+NammaFresh Render Deployment Steps
+
+BACKEND (Django)
+1. Push this project to GitHub.
+2. Render -> New -> Web Service -> select repository.
+3. Root Directory: backend
+4. Build Command: ./build.sh
+5. Start Command: gunicorn nammafresh.wsgi:application
+6. Add environment variables:
+   DEBUG=False
+   SECRET_KEY=any-long-secret-key
+   ALLOWED_HOSTS=your-backend-name.onrender.com
+   CORS_ALLOWED_ORIGINS=https://your-frontend-name.onrender.com
+   CSRF_TRUSTED_ORIGINS=https://your-frontend-name.onrender.com
+   USE_SQLITE=True
+   RAZORPAY_KEY_ID=your_key
+   RAZORPAY_KEY_SECRET=your_secret
+
+FRONTEND (React/Vite)
+1. Render -> New -> Static Site -> same repository.
+2. Root Directory: frontend
+3. Build Command: npm install && npm run build
+4. Publish Directory: dist
+5. Add environment variable:
+   VITE_API_URL=https://your-backend-name.onrender.com/api
+
+Local XAMPP MySQL still works by default. For Render demo deployment, USE_SQLITE=True is added so backend can run without XAMPP.
